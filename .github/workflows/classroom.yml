@@ -1,0 +1,184 @@
+name: Autograding Tests
+
+on:
+  - push
+  - repository_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Case 01 - contoh resmi
+        id: case-01
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 01 - contoh resmi
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "4 A01 3 A02 5 A03 2 A04 4"
+          expected-output: |-
+            ORDER A01 A02 A03 A04
+            WAIT 19
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 02 - satu pasien
+        id: case-02
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 02 - satu pasien
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "1 P01 7"
+          expected-output: |-
+            ORDER P01
+            WAIT 0
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 03 - dua pasien
+        id: case-03
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 03 - dua pasien
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "2 P01 3 P02 4"
+          expected-output: |-
+            ORDER P01 P02
+            WAIT 3
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 04 - tiga pasien durasi sama
+        id: case-04
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 04 - tiga pasien durasi sama
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "3 X1 5 X2 5 X3 5"
+          expected-output: |-
+            ORDER X1 X2 X3
+            WAIT 15
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 05 - ada durasi nol
+        id: case-05
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 05 - ada durasi nol
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "4 A 0 B 2 C 0 D 3"
+          expected-output: |-
+            ORDER A B C D
+            WAIT 4
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 06 - lima pasien campuran
+        id: case-06
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 06 - lima pasien campuran
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "5 A1 1 A2 2 A3 3 A4 4 A5 5"
+          expected-output: |-
+            ORDER A1 A2 A3 A4 A5
+            WAIT 20
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 07 - id campuran
+        id: case-07
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 07 - id campuran
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "3 ZX9 10 Q1 1 T77 2"
+          expected-output: |-
+            ORDER ZX9 Q1 T77
+            WAIT 21
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 08 - banyak pasien kecil
+        id: case-08
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 08 - banyak pasien kecil
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "6 P1 1 P2 1 P3 1 P4 1 P5 1 P6 1"
+          expected-output: |-
+            ORDER P1 P2 P3 P4 P5 P6
+            WAIT 15
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 09 - pasien awal lama
+        id: case-09
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 09 - pasien awal lama
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "4 H1 20 H2 1 H3 1 H4 1"
+          expected-output: |-
+            ORDER H1 H2 H3 H4
+            WAIT 63
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Case 10 - nol semua
+        id: case-10
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Case 10 - nol semua
+          setup-command: gcc -std=c11 -O2 -Wall -Wextra -o soal1 soal1.c
+          command: ./soal1
+          input: "3 N1 0 N2 0 N3 0"
+          expected-output: |-
+            ORDER N1 N2 N3
+            WAIT 0
+          comparison-method: exact
+          timeout: 2
+          max-score: 10
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          CASE-01_RESULTS: "${{steps.case-01.outputs.result}}"
+          CASE-02_RESULTS: "${{steps.case-02.outputs.result}}"
+          CASE-03_RESULTS: "${{steps.case-03.outputs.result}}"
+          CASE-04_RESULTS: "${{steps.case-04.outputs.result}}"
+          CASE-05_RESULTS: "${{steps.case-05.outputs.result}}"
+          CASE-06_RESULTS: "${{steps.case-06.outputs.result}}"
+          CASE-07_RESULTS: "${{steps.case-07.outputs.result}}"
+          CASE-08_RESULTS: "${{steps.case-08.outputs.result}}"
+          CASE-09_RESULTS: "${{steps.case-09.outputs.result}}"
+          CASE-10_RESULTS: "${{steps.case-10.outputs.result}}"
+        with:
+          runners: case-01,case-02,case-03,case-04,case-05,case-06,case-07,case-08,case-09,case-10
