@@ -8,8 +8,6 @@
                             terminal ingin mengetahui urutan pasien yang diproses serta total waktu tunggu seluruh antrean. Anda
                             diminta mensimulasikan antrean tersebut sesuai aturan layanan yang berlaku.
                             Simulasikan antrean pasien dan hitung total waktu tunggu.
-                            EL2008 Pemecahan Masalah dengan Pemrograman - Laboratorium Dasar Teknik Elektro - STEI ITB |
-                            2
                             Kondisi/Aturan:
                                 1. Pasien diproses sesuai urutan datang
                                 2. Waktu tunggu pasien pertama = 0
@@ -25,7 +23,6 @@ typedef struct Pasien {
     int durasi;
     struct Pasien* next;
 } Pasien;
-
 
 int main() {
     int n;
